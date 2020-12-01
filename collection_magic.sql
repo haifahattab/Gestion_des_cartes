@@ -54,6 +54,8 @@ INSERT INTO `cartes` (`id`, `nom`, `edition`, `condition`, `url`, `prix`, `image
 	(23, 'Arène phyrexiane', '9ème édition', 2, 'https://www.cardmarket.com/fr/Magic/Products/Singles/Ninth-Edition/Phyrexian-Arena', 7.4358, 'https://static.cardmarket.com/img/2585e07db5a94233fbc4872d140dcdf4/items/1/9ED/12478.jpg', '2020-09-08'),
 	(24, 'Championne elfe', '9ème édition', 2, 'https://www.cardmarket.com/fr/Magic/Products/Singles/Ninth-Edition/Elvish-Champion', 3.142, 'https://static.cardmarket.com/img/2585e07db5a94233fbc4872d140dcdf4/items/1/9ED/12338.jpg', '2020-09-08'),
 	(25, 'Landes d\'Adarkar', '9ème édition', 5, 'https://www.cardmarket.com/fr/Magic/Products/Singles/Ninth-Edition/Adarkar-Wastes', 2.99, 'https://static.cardmarket.com/img/2585e07db5a94233fbc4872d140dcdf4/items/1/9ED/12262.jpg', '2020-09-08');
+
+
 /*!40000 ALTER TABLE `cartes` ENABLE KEYS */;
 
 -- Listage de la structure de la table collection_magic. conditions
