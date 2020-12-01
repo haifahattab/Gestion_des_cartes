@@ -31,15 +31,15 @@ class Card
 			{
 				self::$database = new Medoo([
 					'database_type' => 'mysql',
-			'database_name' => DATABASE_NAME,
-			'server' => DATABASE_HOST,
-			'username' => DATABASE_USER,
-			'password' => DATABASE_PASSWORD,
+					'database_name' => DATABASE_NAME,
+					'server' => DATABASE_HOST,
+					'username' => DATABASE_USER,
+					'password' => DATABASE_PASSWORD,
 					"charset" => "utf8",
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 				]);
 			}
-			$values = self::$database->select('cartes', '*',['id'=>$id]); /* TODO : écrire la requête qui vous permettra de récupérer les infos de la carte $id en base de données */
+			$values = self::$database->get("cartes","*", ["id" => $id]); /* TODO : écrire la requête qui vous permettra de récupérer les infos de la carte $id en base de données */
 			// doc : https://medoo.in/doc
 		}
 		// à présent on sait qu'on a des valeurs dans values, il s'agit des infos d'une carte en particulier
@@ -54,31 +54,34 @@ class Card
 		}
 		if (isset($values['nom']))
 		{
-			$this->nom= $values['nom']; // TODO à faire sur le même modèle que précédemment
+			$this->title = $values['nom']; // TODO à faire sur le même modèle que précédemment
 		}
 		if (isset($values['prix']))
 		{
-			$this->prix= $values['prix']; // TODO à faire
+			$this->price = $values['prix']; // TODO à faire
 		}
 		if (isset($values['image']))
 		{
-			$this->image= $values['image']; // TODO à faire
+			$this->url_image = $values['image']; // TODO à faire
 		}
 		if (isset($values['url']))
 		{
-			$this->url= $values['url']; // TODO à faire
+			$this->url = $values['url']; // TODO à faire
 		}
 		if (isset($values['edition']))
 		{
-			$this->edition= $values['edition']; // TODO à faire
+			$this->edition = $values['edition']; // TODO à faire
 		}
 		if (isset($values['condition']))
 		{
-			$this->condition= $values['condition']; // TODO à faire
+			$this->condition = $values['condition']; // TODO à faire	
 		}
+
+		
 		// notez : pas besoin de return dans un constructeur !!!
 		// une fois toutes les valeurs initialisée, c'est fini
 	}
+
 
 	// cette fonction est static ! ça veut dire qu'elle ne s'applique pas à un objet Card en particulier, elle s'adresse à sa classe. C'est global ! Et ce qu'on veut ici c'est récupérer l'ensemble de toutes les Cards existant en base de données
 	public static function getAllCards($sort="pd")
@@ -112,18 +115,18 @@ class Card
 			// le code vous est donné ici, pensez bien à configurer vos constantes dans Constants.php
 			self::$database = new Medoo([
 				'database_type' => 'mysql',
-			'database_name' => DATABASE_NAME,
-			'server' => DATABASE_HOST,
-			'username' => DATABASE_USER,
-			'password' => DATABASE_PASSWORD,
-					"charset" => "utf8",
+				'database_name' => DATABASE_NAME,
+				'server' => DATABASE_HOST,
+				'username' => DATABASE_USER,
+				'password' => DATABASE_PASSWORD,
+				"charset" => "utf8",
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			]);
 		}
 		/* TODO : la ligne ci-dessous a pour fonction de récupérer sous la forme d'un tableau ($values) toutes les
 		cartes de la base de données tout en tenant compte du tri déjà préparé en amont dans $array_sort */
-		$values = self::$database->select('cartes','*',['ORDER' => $array_sort]);// à compléter, voir doc de Medoo : https://medoo.in/api/select
-		$results = array();
+		$values = self::$database->select("cartes","*",['ORDER' => $array_sort]);// à compléter, voir doc de Medoo : https://medoo.in/api/select
+		$results = array() ;
 		for($i = 0; $i < sizeof($values); ++$i) {
 			$carte = new Card($values[$i]['id'], $values[$i]) ;// TODO : à compléter pour que l'appel au constructeur Card construise bien chaque carte avec les bons paramètres
 			array_push($results, $carte) ; // on ajoute la carte à $values
@@ -141,17 +144,17 @@ class Card
 		{	// le code vous est donné ici, pensez bien à configurer vos constantes dans Constants.php
 			self::$database = new Medoo([
 				'database_type' => 'mysql',
-			'database_name' => DATABASE_NAME,
-			'server' => DATABASE_HOST,
-			'username' => DATABASE_USER,
-			'password' => DATABASE_PASSWORD,
-					"charset" => "utf8",
+				'database_name' => DATABASE_NAME,
+				'server' => DATABASE_HOST,
+				'username' => DATABASE_USER,
+				'password' => DATABASE_PASSWORD,
+				"charset" => "utf8",
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			]);
 		}
 
 		/* TODO : la ligne ci-dessous a pour fonction de récupérer sous la forme d'un tableau ($values) toutes les cartes de la base de données (sans ordre de tri)*/
-		$values = self::$database-> select('cartes','*'); // à compléter, voir doc de Medoo : https://medoo.in/api/select
+		$values = self::$database->select("cartes",'*'); // à compléter, voir doc de Medoo : https://medoo.in/api/select
 		$json_array = array() ;
 		for($i = 0; $i < sizeof($values); ++$i) {
 			$carte = new Card($values[$i]['id'], $values[$i]) ; // TODO : à compléter pour que l'appel au constructeur Card construise bien chaque carte avec les bons paramètres (regardez la signature du constructeur)
